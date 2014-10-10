@@ -1,5 +1,7 @@
 package br.com.schumaker.nogof.creational.simplefactory;
 
+import br.com.schumaker.nogof.creational.simplefactory.domain.Banco;
+
 /**
  *
  * @author Hudson Schumaker

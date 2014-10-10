@@ -1,5 +1,5 @@
 
-package br.com.schumaker.nogof.creational.simplefactory;
+package br.com.schumaker.nogof.creational.simplefactory.domain;
 
 import java.util.List;
 
