@@ -1,21 +1,22 @@
 package br.com.schumaker.nogof.creational.objectpool;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  *
- * @author  Hudson Schumaker
+ * @author Hudson Schumaker
  */
 public abstract class ObjectPool<T> {
 
     private long expirationTime;
-    private Hashtable<T, Long> locked, unlocked;
+    private Map<T, Long> locked, unlocked;
 
     public ObjectPool() {
         expirationTime = 30000; // 30 segundos
-        locked = new Hashtable<T, Long>();
-        unlocked = new Hashtable<T, Long>();
+        locked = new HashMap<>();
+        unlocked = new HashMap<>();
     }
 
     protected abstract T create();
@@ -25,9 +26,9 @@ public abstract class ObjectPool<T> {
         long now = System.currentTimeMillis();
         T t;
         if (unlocked.size() > 0) {
-            Enumeration<T> e = unlocked.keys();
-            while (e.hasMoreElements()) {
-                t = e.nextElement();
+            Iterator<Map.Entry<T, Long>> e = unlocked.entrySet().iterator();
+            while (e.hasNext()) {
+                t = (T) e.next();
                 if ((now - unlocked.get(t)) > expirationTime) {
                     // Objeto expirado
                     unlocked.remove(t);
